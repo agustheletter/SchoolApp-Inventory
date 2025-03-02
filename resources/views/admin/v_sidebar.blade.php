@@ -283,6 +283,35 @@
                 </li>
                 <!--Akhir Pembayaran-->
 
+                <!-- Awal Sarana & Prasarana -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-tools"></i>
+                        <p>
+                            Sarana & Prasarana
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/barang" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Inventory</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/peminjaman" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Peminjaman</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Akhir Sarana & Prasarana -->
+
+
 
                 
                 
