@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangDetailController;
 use App\Http\Controllers\DspController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JenisBayarDetailController;
@@ -167,4 +168,5 @@ Route::resource('barang', BarangController::class)->middleware('auth');
 Route::get('/barang/trash', [BarangController::class, 'trash'])->name('barang.trash')->middleware('auth');
 Route::get('/barang/restore/{idbarang}', [BarangController::class, 'restore'])->name('barang.restore')->middleware('auth');
 Route::get('/barang/force-delete/{idbarang}', [BarangController::class, 'forceDelete'])->name('barang.forceDelete')->middleware('auth');
+Route::post('/barangdetail/bulk-update', [BarangDetailController::class, 'bulkUpdate'])->name('barangdetail.bulkUpdate');
 //========================AKHIR ROUTE BARANGs========================

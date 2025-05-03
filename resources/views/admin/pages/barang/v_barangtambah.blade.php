@@ -17,13 +17,14 @@
         </div>
     @endif
 
-    <form action="{{ route('barang.store') }}" method="POST">
+    <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
         <div class="mb-3">
             <label for="kodebarang" class="form-label">Kode Barang</label>
             <input type="text" name="kodebarang" id="kodebarang" class="form-control" required>
         </div>
-        
+
         <div class="mb-3">
             <label for="namabarang" class="form-label">Nama Barang</label>
             <input type="text" name="namabarang" id="namabarang" class="form-control" required>
@@ -61,6 +62,12 @@
         <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
             <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
+        </div>
+
+        <!-- Input untuk Gambar -->
+        <div class="mb-3">
+            <label for="gambar" class="form-label">Gambar Barang</label>
+            <input type="file" name="gambar" id="gambar" class="form-control" accept="image/*">
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BarangModel;
+use Illuminate\Support\Facades\File;
 
 class BarangController extends Controller
 {
@@ -38,12 +39,24 @@ class BarangController extends Controller
             'merk' => 'nullable|string',
             'jenisbarang' => 'required|string',
             'deskripsi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-
-        BarangModel::create($request->all());
-
+    
+        $data = $request->all();
+    
+        // Handle upload gambar
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('gambar_barang'), $namaFile);
+            $data['gambar'] = $namaFile;
+        }
+    
+        BarangModel::create($data);
+    
         return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan');
     }
+    
 
     /**
      * Tampilkan detail barang.
@@ -77,13 +90,31 @@ class BarangController extends Controller
             'merk' => 'nullable|string',
             'jenisbarang' => 'required|string',
             'deskripsi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-
+    
         $barang = BarangModel::findOrFail($idbarang);
-        $barang->update($request->all());
-
+        $data = $request->all();
+    
+        // Update gambar jika diunggah
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            $oldImage = public_path('gambar_barang/' . $barang->gambar);
+            if (File::exists($oldImage)) {
+                File::delete($oldImage);
+            }
+    
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('gambar_barang'), $namaFile);
+            $data['gambar'] = $namaFile;
+        }
+    
+        $barang->update($data);
+    
         return redirect()->route('barang.index')->with('success', 'Barang berhasil diperbarui');
     }
+    
 
     /**
      * Hapus barang (SoftDeletes).
@@ -123,7 +154,14 @@ class BarangController extends Controller
     {
         $barang = BarangModel::onlyTrashed()->where('idbarang', $idbarang)->firstOrFail();
         $barang->forceDelete();
-
+        
         return redirect()->route('barang.trash')->with('success', 'Barang dihapus secara permanen');
     }
+
+    public function detail($idbarang)
+    {
+        $barang = BarangModel::with('details')->findOrFail($idbarang);
+        return view('admin.pages.barang.v_barangtampil', compact('barang'));
+    }
+
 }

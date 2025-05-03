@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <form action="{{ route('barang.update', $barang->idbarang) }}" method="POST">
+    <form action="{{ route('barang.update', $barang->idbarang) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -58,6 +58,15 @@
         <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
             <textarea class="form-control" id="deskripsi" name="deskripsi">{{ old('deskripsi', $barang->deskripsi) }}</textarea>
+        </div>
+
+        <!-- Input Gambar (Jika diperlukan) -->
+        <div class="mb-3">
+            <label for="gambar" class="form-label">Gambar Barang</label>
+            <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
+            @if($barang->gambar)
+                <img src="{{ asset('gambar_barang/' . $barang->gambar) }}" alt="Gambar Barang" class="img-fluid mt-2" style="max-height: 150px;">
+            @endif
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

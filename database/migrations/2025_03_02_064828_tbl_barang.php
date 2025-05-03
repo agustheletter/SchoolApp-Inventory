@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('merk')->nullable();
             $table->string('jenisbarang');
             $table->text('deskripsi')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps(); // Kolom created_at & updated_at
             $table->softDeletes(); // Kolom deleted_at untuk SoftDeletes
         });
