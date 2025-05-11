@@ -164,6 +164,20 @@ Route::put('/jenisbayardetail/edit/{idjenisbayardetail}', [JenisBayarDetailContr
 //========================AKHIR ROUTE JENIS BAYAR DETAIL========================
 
 //=========================AWAL ROUTE BARANG=========================
+
+Route::get('/loginbarang', function () {
+    return view('admin.pages.barang.v_loginbarang');
+})->name('loginbarang');
+
+// Halaman User
+Route::get('user/barang/cari', [BarangController::class, 'usercari'])->name('barang.usercari');
+Route::get('/user/barang', [BarangController::class, 'user'])->name('barang.user');
+Route::get('/user/barangdetail', [BarangController::class, 'usershow'])->name('barang.usershow');
+Route::get('/user/barang/{id}', [BarangController::class, 'usershow'])->name('barang.usershow');
+
+
+
+
 Route::get('/barang/cari', [BarangController::class, 'cari'])->name('barang.cari');
 Route::resource('barang', BarangController::class)->middleware('auth');
 Route::get('/barang/trash', [BarangController::class, 'trash'])->name('barang.trash')->middleware('auth');

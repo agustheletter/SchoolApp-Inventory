@@ -17,6 +17,12 @@ class BarangController extends Controller
         return view('admin.pages.barang.v_barang', ['barang'=>$barang]);
     }
 
+    public function user()
+    {
+        $barang = BarangModel::paginate(5);
+        return view('admin.pages.barang.user.v_userbarang', ['barang'=>$barang]);
+    }
+
     /**
      * Tampilkan form tambah barang.
      */
@@ -67,6 +73,15 @@ class BarangController extends Controller
         return view('admin.pages.barang.v_barangtampil', compact('barang'));
     }
 
+    public function usershow($id)
+    {
+        // Ambil data barang berdasarkan id
+        $barang = BarangModel::find($id);
+        
+        // Tampilkan data atau lakukan hal lain
+        return view('admin.pages.barang.user.v_userbarangtampil', compact('barang'));
+    }
+    
     /**
      * Tampilkan form edit barang.
      */
@@ -175,6 +190,19 @@ class BarangController extends Controller
                     ->appends(['cari' => $keyword]); // ini penting agar query ?cari tetap terbawa saat ganti halaman
 
         return view('admin.pages.barang.v_barang', compact('barang'));
+    }
+
+    public function usercari(Request $request)
+    {
+        $keyword = $request->cari;
+
+        $barang = BarangModel::where('namabarang', 'like', "%{$keyword}%")
+                    ->orWhere('kodebarang', 'like', "%{$keyword}%")
+                    ->orWhere('merk', 'like', "%{$keyword}%")
+                    ->paginate(5)
+                    ->appends(['cari' => $keyword]); // ini penting agar query ?cari tetap terbawa saat ganti halaman
+
+        return view('admin.pages.barang.user.v_userbarang', compact('barang'));
     }
     
 }
