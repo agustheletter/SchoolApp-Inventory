@@ -32,6 +32,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_barang');
+        Schema::table('barang', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // Menghapus kolom deleted_at
+        });
     }
 };

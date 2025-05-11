@@ -5,6 +5,15 @@
 
 @section('konten')
 <div class="container mt-4">
+    <div class="d-flex justify-content-center">
+        <form action="{{ route('barang.cari') }}" method="GET" class="mb-3 d-flex gap-2">
+            <input type="text" name="cari" class="form-control w-auto" placeholder="Cari Barang..." value="{{ request('cari') }}">
+            <button type="submit" class="btn btn-primary">Cari</button>
+        </form>    
+    </div>
+    
+    
+
     <a href="{{ route('barang.create') }}" class="btn btn-success mb-3">Tambah Barang</a>
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -26,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($barang as $item)
+                @forelse ($barang as $item)
                     <tr>
                         <td>{{ $item->idbarang }}</td>
                         <td>{{ $item->kodebarang }}</td>
@@ -37,7 +46,7 @@
                         <td>{{ $item->jenisbarang }}</td>
                         <td>
                             @if($item->gambar)
-                            <img src="{{ asset('gambar_barang/' . $item->gambar) }}" width="100" class="img-fluid rounded shadow-sm" alt="gambar">
+                                <img src="{{ asset('gambar_barang/' . $item->gambar) }}" width="100" class="img-fluid rounded shadow-sm" alt="gambar">
                             @else
                                 <span class="text-muted">Tidak ada gambar</span>
                             @endif
@@ -52,11 +61,20 @@
                                     <button type="submit" class="btn btn-danger btn-sm w-100">Hapus</button>
                                 </form>
                             </div>
-                        </td>                                            
+                        </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">Barang tidak ditemukan.</td>
+                    </tr>
+                @endforelse
             </tbody>
+            
         </table>
     </div>
+    <div class="justify-center">
+        {{ $barang->links() }}
+    </div>
+    
 </div>
 @endsection

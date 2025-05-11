@@ -13,8 +13,8 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = BarangModel::all();
-        return view('admin.pages.barang.v_barang', compact('barang'));
+        $barang = BarangModel::paginate(5);
+        return view('admin.pages.barang.v_barang', ['barang'=>$barang]);
     }
 
     /**
@@ -164,4 +164,17 @@ class BarangController extends Controller
         return view('admin.pages.barang.v_barangtampil', compact('barang'));
     }
 
+    public function cari(Request $request)
+    {
+        $keyword = $request->cari;
+
+        $barang = BarangModel::where('namabarang', 'like', "%{$keyword}%")
+                    ->orWhere('kodebarang', 'like', "%{$keyword}%")
+                    ->orWhere('merk', 'like', "%{$keyword}%")
+                    ->paginate(5)
+                    ->appends(['cari' => $keyword]); // ini penting agar query ?cari tetap terbawa saat ganti halaman
+
+        return view('admin.pages.barang.v_barang', compact('barang'));
+    }
+    
 }
