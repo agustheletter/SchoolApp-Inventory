@@ -8,20 +8,32 @@ use Illuminate\Database\Eloquent\Model;
 class JurusanModel extends Model
 {
     use HasFactory;
+
     protected $table        = "tbl_jurusan";
     protected $primaryKey   = 'idjurusan';
     protected $keyType      = 'string';
     public $incrementing    = false;
-    protected $fillable     = ['idjurusan','kodejurusan','namajurusan','idprogramkeahlian'];
+
+    protected $fillable     = [
+        'idjurusan',
+        'kodejurusan',
+        'namajurusan',
+        'idprogramkeahlian',
+    ];
 
     public function kelas()
     {
-        return $this->hasMany('App\Models\KelasModel','idjurusan');
+        return $this->hasMany('App\Models\KelasModel', 'idjurusan');
     }
 
     public function programkeahlian()
     {
-        return $this->belongsTo('App\Models\ProgramKeahlianModel','idprogramkeahlian');
+        return $this->belongsTo('App\Models\ProgramKeahlianModel', 'idprogramkeahlian');
     }
 
+    // Relasi ke barang
+    public function barang()
+    {
+        return $this->hasMany('App\Models\BarangModel', 'idjurusan', 'idjurusan');
+    }
 }

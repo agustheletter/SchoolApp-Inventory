@@ -11,6 +11,8 @@ use App\Http\Controllers\KelasDetailController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MutasiKelasController;
+use App\Http\Controllers\PinjamController;
+use App\Http\Controllers\PinjamDetailController;
 use App\Http\Controllers\ProgramKeahlianController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\SiswaController;
@@ -186,3 +188,26 @@ Route::get('/barang/force-delete/{idbarang}', [BarangController::class, 'forceDe
 Route::post('/barangdetail/bulk-update', [BarangDetailController::class, 'bulkUpdate'])->name('barangdetail.bulkUpdate');
 
 //========================AKHIR ROUTE BARANGs========================
+
+
+//=========================AWAL ROUTE PINJAM=========================
+Route::prefix('peminjaman')->name('pinjam.')->group(function () {
+    Route::get('/', [PinjamController::class, 'index'])->name('index');
+    Route::get('/create', [PinjamController::class, 'create'])->name('create');
+    Route::post('/store', [PinjamController::class, 'store'])->name('store');
+    Route::get('/{idpinjam}/edit', [PinjamController::class, 'edit'])->name('edit');
+    Route::put('/{idpinjam}', [PinjamController::class, 'update'])->name('update');
+    Route::delete('/{idpinjam}', [PinjamController::class, 'destroy'])->name('destroy');
+    Route::get('/{idpinjam}', [PinjamController::class, 'show'])->name('show');
+});
+//========================AKHIR ROUTE PINJAM========================
+
+//=========================AWAL ROUTE PINJAM DETAIL=========================
+Route::prefix('pinjamdetail')->name('pinjamdetail.')->group(function () {
+    Route::get('/{idpinjam}', [PinjamDetailController::class, 'index'])->name('index');
+    Route::put('/pinjam/konfirmasi/{id}', [PinjamController::class, 'konfirmasi'])->name('pinjam.konfirmasi');
+    Route::get('/create/{idpinjam}', [PinjamDetailController::class, 'create'])->name('create');
+    Route::post('/store', [PinjamDetailController::class, 'store'])->name('store');
+    Route::delete('/{id}', [PinjamDetailController::class, 'destroy'])->name('destroy');
+});
+//========================AKHIR ROUTE PINJAM========================

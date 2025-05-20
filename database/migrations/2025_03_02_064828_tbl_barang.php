@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('gambar')->nullable();
             $table->timestamps(); // Kolom created_at & updated_at
             $table->softDeletes(); // Kolom deleted_at untuk SoftDeletes
+
+            $table->unsignedInteger('idjurusan')->nullable(); // tambahkan ini
+            $table->foreign('idjurusan')->references('idjurusan')->on('tbl_jurusan')->onDelete('set null'); // dan ini
+
         });
     }
 
@@ -32,7 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('barang', function (Blueprint $table) {
+        Schema::table('tbl_barang', function (Blueprint $table) {
             $table->dropSoftDeletes(); // Menghapus kolom deleted_at
         });
     }
