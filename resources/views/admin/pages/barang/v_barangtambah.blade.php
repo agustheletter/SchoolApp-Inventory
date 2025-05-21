@@ -5,8 +5,6 @@
 @section('konten')
 <div class="container mt-4">
     <h2>Tambah Barang</h2>
-    <a href="{{ route('barang.index') }}" class="btn btn-secondary mb-3">Kembali</a>
-
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -70,7 +68,8 @@
             <input type="file" name="gambar" id="gambar" class="form-control" accept="image/*">
         </div>
 
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+        <a href="{{ route('barang.index') }}" class="btn btn-secondary">batal</a>
     </form>
 </div>
 @endsection

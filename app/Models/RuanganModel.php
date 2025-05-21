@@ -2,29 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\JurusanModel;
 
 class RuanganModel extends Model
 {
-    use HasFactory;
-    protected $table        = "tbl_ruangan";
-    protected $primaryKey   = 'idruangan';
-    protected $keyType      = 'string';
-    public $incrementing    = false;
-    protected $fillable     = [
-                                'idruangan',
-                                'koderuangan',
-                                'namaruangan',
-                                'lokasi',
-                                'lebar',
-                                'panjang',
-                                'kondisi',
-                            ];
+    use HasFactory, SoftDeletes;
 
+    protected $table = 'tbl_ruangan';
+    protected $primaryKey = 'idruangan';
+    public $timestamps = true;
 
-    public function kelasdetail()
+    protected $fillable = [
+        'koderuangan',
+        'namaruangan',
+        'jumlah',
+        'lokasi',
+        'deskripsi',
+        'gambar',
+        'status',
+        'idjurusan',
+    ];
+
+    // Relasi ke jurusan
+    public function jurusan()
     {
-        return $this->hasMany('App\Models\KelasDetailModel','idruangan');
+        return $this->belongsTo(JurusanModel::class, 'idjurusan', 'idjurusan');
     }
 }

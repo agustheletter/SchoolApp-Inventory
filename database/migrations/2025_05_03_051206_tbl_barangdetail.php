@@ -13,6 +13,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idbarang'); // Foreign key ke tbl_barang
             $table->string('kodebarangdetail')->unique();
             $table->enum('kondisi', ['bagus', 'rusak'])->default('bagus');
+            $table->enum('status', ['tersedia', 'dipinjam'])->default('tersedia');
             $table->timestamps();
 
             // Foreign key constraint

@@ -4,20 +4,41 @@
 @section('title', 'Barang')
 
 @section('konten')
+
+<ul class="nav nav-tabs mb-4" id="barangRuanganTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a 
+      class="nav-link {{ request()->is('barang*') ? 'active' : '' }}" 
+      href="{{ route('barang.index') }}" 
+      role="tab"
+    >
+      Barang
+    </a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a 
+      class="nav-link {{ request()->is('ruangan*') ? 'active' : '' }}" 
+      href="{{ route('ruangan.index') }}" 
+      role="tab"
+    >
+      Ruangan
+    </a>
+  </li>
+</ul>
+
 <div class="container mt-4">
-    <div class="d-flex justify-content-center">
-        <form action="{{ route('barang.cari') }}" method="GET" class="mb-3 d-flex gap-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ route('barang.create') }}" class="btn btn-success">+ Tambah Barang</a>
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        
+        <form action="{{ route('barang.cari') }}" method="GET" class="d-flex gap-2">
             <input type="text" name="cari" class="form-control w-auto" placeholder="Cari Barang..." value="{{ request('cari') }}">
             <button type="submit" class="btn btn-primary">Cari</button>
-        </form>    
+        </form>
     </div>
-    
-    
 
-    <a href="{{ route('barang.create') }}" class="btn btn-success mb-3">Tambah Barang</a>
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
@@ -64,7 +85,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr>
+                    <tr>    
                         <td colspan="9" class="text-center text-muted">Barang tidak ditemukan.</td>
                     </tr>
                 @endforelse

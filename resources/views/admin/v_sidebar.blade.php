@@ -295,7 +295,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/loginbarang" class="nav-link">
+                            <a href="/barang" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inventory</p>
                             </a>

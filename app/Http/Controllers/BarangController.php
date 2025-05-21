@@ -204,5 +204,5 @@ class BarangController extends Controller
 
         return view('admin.pages.barang.user.v_userbarang', compact('barang'));
     }
-    
+
 }

@@ -14,6 +14,7 @@ class BarangDetailModel extends Model
         'idbarang',
         'kodebarangdetail',
         'kondisi',
+        'status',
     ];
 
     public function barang()

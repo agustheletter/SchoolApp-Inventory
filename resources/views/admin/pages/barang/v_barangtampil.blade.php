@@ -47,57 +47,109 @@
                         <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                     </div>
-                @endif
+                    @endif
                 
-                @if($barang->detail->isEmpty())
-                    <div class="alert alert-warning" role="alert">
-                        <i class="bi bi-exclamation-triangle me-2"></i> Belum ada detail untuk barang ini.
-                    </div>
-                @else
-                    <h5 class="card-title mb-4">Daftar Detail Setiap Barang</h5>
-                
-                    <form action="{{ route('barangdetail.bulkUpdate') }}" method="POST">
-                        @csrf
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped align-middle">
-                                <thead class="table-dark text-center">
-                                    <tr>
-                                        <th style="width: 10%">ID</th>
-                                        <th style="width: 40%">Kode Barang Detail</th>
-                                        <th style="width: 50%">Kondisi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($barang->detail as $index => $detail)
+                    @if($barang->detail->isEmpty())
+                        <div class="alert alert-warning" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i> Belum ada detail untuk barang ini.
+                        </div>
+                    @else
+                        <h5 class="card-title mb-4">Daftar Detail Setiap Barang</h5>
+                    
+                        <!-- Form bulk update -->
+                        <form id="bulkUpdateForm" action="{{ route('barangdetail.bulkUpdate') }}" method="POST">
+                            @csrf
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped align-middle">
+                                    <thead class="table-dark text-center">
                                         <tr>
-                                            <td class="text-center">
-                                                {{ $detail->idbarangdetail }}
-                                                <input type="hidden" name="id[]" value="{{ $detail->idbarangdetail }}">
-                                            </td>
-                                            <td>{{ $detail->kodebarangdetail }}</td>
-                                            <td>
-                                                <select name="kondisi[]" class="form-select form-select-sm">
-                                                    <option value="bagus" {{ $detail->kondisi === 'bagus' ? 'selected' : '' }}>Bagus</option>
-                                                    <option value="rusak" {{ $detail->kondisi === 'rusak' ? 'selected' : '' }}>Rusak</option>
-                                                </select>
-                                            </td>
+                                            <th style="width: 5%">ID</th>
+                                            <th style="width: 35%">Kode Barang Detail</th>
+                                            <th style="width: 20%">Kondisi</th>
+                                            <th style="width: 20%">status</th>                                            
+                                            <th style="width: 20%">Aksi</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                
-                        <div class="text-end mt-3">
-                            <button type="submit" class="btn btn-success">
-                                <i class="bi bi-save me-1"></i> Simpan Perubahan
-                            </button>
-                        </div>
-                    </form>
-                @endif
+                                    </thead>
+                                    <tbody>
+                                        @foreach($barang->detail as $index => $detail)
+                                            <tr>
+                                                <td class="text-center">
+                                                    {{ $index + 1 }}
+                                                    <input type="hidden" name="id[]" value="{{ $detail->idbarangdetail }}">
+                                                </td>
+                                                <td>{{ $detail->kodebarangdetail }}</td>
+                                                <td>
+                                                    <select name="kondisi[]" class="form-select form-select-sm">
+                                                        <option value="bagus" {{ $detail->kondisi === 'bagus' ? 'selected' : '' }}>Bagus</option>
+                                                        <option value="rusak" {{ $detail->kondisi === 'rusak' ? 'selected' : '' }}>Rusak</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select name="status[]" class="form-select form-select-sm">
+                                                        <option value="tersedia" {{ $detail->status === 'tersedia' ? 'selected' : '' }}>Tersedia</option>
+                                                        <option value="dipinjam" {{ $detail->status === 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" class="btn btn-sm btn-danger btn-delete-detail" data-id="{{ $detail->idbarangdetail }}">
+                                                        <i class="bi bi-trash"></i> Hapus
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-info btn-delete-detail">
+                                                        <i class="bi bi-trash"></i> Pinjam
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                    
+                            <div class="text-end mt-3">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-save me-1"></i> Simpan Perubahan
+                                </button>
+                            </div>
+                        </form>
+                    @endif
                 
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Script untuk tombol hapus detail -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-delete-detail').forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            if (confirm('Yakin ingin menghapus detail ini?')) {
+                // Buat form secara dinamis
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/barangdetail/${id}`;
+
+                // CSRF token
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_token';
+                csrfInput.value = '{{ csrf_token() }}';
+
+                // Method DELETE
+                const methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+
+                form.appendChild(csrfInput);
+                form.appendChild(methodInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+</script>
 @endsection

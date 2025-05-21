@@ -62,14 +62,14 @@
 
         <!-- Input Gambar (Jika diperlukan) -->
         <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar Barang</label>
-            <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
+            <label for="gambar" class="form-label">Gambar Barang</label><br>
             @if($barang->gambar)
                 <img src="{{ asset('gambar_barang/' . $barang->gambar) }}" alt="Gambar Barang" class="img-fluid mt-2" style="max-height: 150px;">
             @endif
+            <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
         </div>
 
-        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
         <a href="{{ route('barang.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>

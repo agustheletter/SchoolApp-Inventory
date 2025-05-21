@@ -11,12 +11,17 @@ use App\Models\TahunAjaranModel;
 
 //panggil model Login
 use App\Models\LoginModel;
-
+use Illuminate\Support\Facades\Session as FacadesSession;
 use Session;
 
 class LoginController extends Controller
 {
     //Fungsi menampilkan halaman Login
+    public function awal()
+    {
+        return view('landing');
+    }
+
     public function login()
     {
         if (Auth::check()) 
@@ -67,7 +72,7 @@ class LoginController extends Controller
         }
         else
         {
-            Session::flash('error', 'Email atau Password Salah');
+            FacadesSession::flash('error', 'Email atau Password Salah');
             return redirect('/');
         }
     }

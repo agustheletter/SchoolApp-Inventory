@@ -19,6 +19,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\SppController;
 use App\Http\Controllers\TahunAjaranController;
+use App\Http\Controllers\RuanganDetailController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -27,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 
 
 //=========================AWAL ROUTE LOGIN=========================
-Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::get('/', [LoginController::class, 'awal'])->name('awal');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('loginaksi', [LoginController::class, 'loginaksi'])->name('loginaksi');
 Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->name('logoutaksi')->middleware('auth');
 //=========================AWAL ROUTE LOGIN=========================
@@ -63,15 +65,6 @@ Route::post('/kelas/tambah', [KelasController::class, 'kelastambah'])->middlewar
 Route::get('/kelas/hapus/{idkelas}', [KelasController::class, 'kelashapus'])->middleware('auth');
 Route::put('/kelas/edit/{idkelas}', [KelasController::class, 'kelasedit'])->middleware('auth');
 //========================AKHIR ROUTE KELAS========================
-
-
-//=========================AWAL ROUTE RUANGAN=========================
-Route::get('/ruangan', [RuanganController::class, 'ruangan'])->middleware('auth');
-Route::post('/ruangan/tambah', [RuanganController::class, 'ruangantambah'])->middleware('auth');
-Route::get('/ruangan/hapus/{idruang}', [RuanganController::class, 'ruanganhapus'])->middleware('auth');
-Route::put('/ruangan/edit/{idruang}', [RuanganController::class, 'ruanganedit'])->middleware('auth');
-//========================AKHIR ROUTE RUANGAN========================
-
 
 
 //=========================AWAL ROUTE KELAS DETAIL=========================
@@ -167,10 +160,6 @@ Route::put('/jenisbayardetail/edit/{idjenisbayardetail}', [JenisBayarDetailContr
 
 //=========================AWAL ROUTE BARANG=========================
 
-Route::get('/loginbarang', function () {
-    return view('admin.pages.barang.v_loginbarang');
-})->name('loginbarang');
-
 // Halaman User
 Route::get('user/barang/cari', [BarangController::class, 'usercari'])->name('barang.usercari');
 Route::get('/user/barang', [BarangController::class, 'user'])->name('barang.user');
@@ -186,8 +175,28 @@ Route::get('/barang/trash', [BarangController::class, 'trash'])->name('barang.tr
 Route::get('/barang/restore/{idbarang}', [BarangController::class, 'restore'])->name('barang.restore')->middleware('auth');
 Route::get('/barang/force-delete/{idbarang}', [BarangController::class, 'forceDelete'])->name('barang.forceDelete')->middleware('auth');
 Route::post('/barangdetail/bulk-update', [BarangDetailController::class, 'bulkUpdate'])->name('barangdetail.bulkUpdate');
+Route::delete('/barangdetail/{id}', [BarangDetailController::class, 'destroydetail'])->name('barangdetail.destroy');
+
 
 //========================AKHIR ROUTE BARANGs========================
+
+//=========================AWAL ROUTE RUANGAN=========================
+
+// Halaman User Ruangan
+Route::get('user/ruangan/cari', [RuanganController::class, 'usercari'])->name('ruangan.usercari');
+Route::get('/user/ruangan', [RuanganController::class, 'user'])->name('ruangan.user');
+Route::get('/user/ruangandetail', [RuanganController::class, 'usershow'])->name('ruangan.usershow');
+Route::get('/user/ruangan/{id}', [RuanganController::class, 'usershow'])->name('ruangan.usershow');
+
+// Pencarian dan resource CRUD Ruangan (auth middleware)
+Route::get('/ruangan/cari', [RuanganController::class, 'cari'])->name('ruangan.cari');
+Route::resource('ruangan', RuanganController::class)->middleware('auth');
+Route::get('/ruangan/trash', [RuanganController::class, 'trash'])->name('ruangan.trash')->middleware('auth');
+Route::get('/ruangan/restore/{idruangan}', [RuanganController::class, 'restore'])->name('ruangan.restore')->middleware('auth');
+Route::get('/ruangan/force-delete/{idruangan}', [RuanganController::class, 'forceDelete'])->name('ruangan.forceDelete')->middleware('auth');
+
+// Jika ada bulk update untuk ruangan detail, misal:
+// Route::post('/ruangandetail/bulk-update', [RuanganDetailController::class, 'bulkUpdate'])->name('ruangandetail.bulkUpdate');
 
 
 //=========================AWAL ROUTE PINJAM=========================

@@ -11,15 +11,27 @@ class BarangDetailController extends Controller
     {
         $ids = $request->input('id');
         $kondisis = $request->input('kondisi');
+        $statuses = $request->input('status');
 
         foreach ($ids as $index => $id) {
-            $detail = BarangDetailModel::find($id); // gunakan model yang sudah diimport
+            $detail = BarangDetailModel::find($id);
             if ($detail) {
                 $detail->kondisi = $kondisis[$index];
+                $detail->status = $statuses[$index];
                 $detail->save();
             }
         }
 
-        return redirect()->back()->with('success', 'Kondisi detail barang berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Daftar barang berhasil diperbarui.');
     }
+
+
+    public function destroydetail($id)
+    {
+        $detail = BarangDetailModel::findOrFail($id);
+        $detail->delete();
+
+        return redirect()->back()->with('success', 'Detail barang berhasil dihapus.');
+    }
+
 }

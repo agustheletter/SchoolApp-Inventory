@@ -2,95 +2,187 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RuanganModel;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use App\Models\RuanganModel;
+use Illuminate\Support\Facades\File;
 
 class RuanganController extends Controller
 {
-    use ValidatesRequests;
-
-    //====================AWAL METHODE UNTUK TAMPIL RUANGAN=================
-    //tampil dengan eloquent
-    public function ruangan()
+    /**
+     * Tampilkan daftar ruangan.
+     */
+    public function index()
     {
-        $ruangan = RuanganModel::all();
-
-        // mengirim data guru ke view guru
-        return view('admin.pages.master.v_ruangan', ['dataruangan' => $ruangan]);
-        
+        $ruangan = RuanganModel::paginate(5);
+        return view('admin.pages.ruangan.v_ruangan', ['ruangan' => $ruangan]);
     }
-    //===================AKHIR METHODE UNTUK TAMPIL RUANGAN================
 
-
-    //====================AWAL METHODE UNTUK TAMBAH RUANGAN=================
-    //method tambah data ruangan dengan eloquent
-    public function ruangantambah(Request $request)
+    public function user()
     {
-        // dd($request->all());
-        $this->validate($request, [
-            // 'idruangan' => 'required',
-            'koderuangan' => 'required',
-            'namaruangan' => 'required',
-            'lokasi' => 'required',
-            'lebar' => 'required',
-            'panjang' => 'required',
-            'kondisi' => 'required',
+        $ruangan = RuanganModel::paginate(5);
+        return view('admin.pages.ruangan.user.v_userruangan', ['ruangan' => $ruangan]);
+    }
+
+    /**
+     * Tampilkan form tambah ruangan.
+     */
+    public function create()
+    {
+        return view('admin.pages.ruangan.v_ruangantambah');
+    }
+
+    /**
+     * Simpan ruangan baru ke database.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'koderuangan' => 'required|unique:tbl_ruangan',
+            'namaruangan' => 'required|string',
+            'jumlah' => 'required|integer',
+            'lokasi' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'status' => 'required|in:tersedia,dipinjam', // ✅ Tambah ini
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-    
-        RuanganModel::create([
-            // 'idruangan' => $request->idruangan,
-            'koderuangan' => $request->koderuangan,
-            'namaruangan' => $request->namaruangan,
-            'lokasi' => $request->lokasi,
-            'lebar' => $request->lebar,
-            'panjang' => $request->panjang,
-            'kondisi' => $request->kondisi,
+
+        $data = $request->all();
+
+        // Handle upload gambar
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('gambar_ruangan'), $namaFile);
+            $data['gambar'] = $namaFile;
+        }
+
+        RuanganModel::create($data);
+
+        return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil ditambahkan');
+    }
+
+    /**
+     * Tampilkan detail ruangan.
+     */
+    public function show($idruangan)
+    {
+        $ruangan = RuanganModel::findOrFail($idruangan);
+        return view('admin.pages.ruangan.v_ruangantampil', compact('ruangan'));
+    }
+
+    /**
+     * Tampilkan form edit ruangan.
+     */
+    public function edit($idruangan)
+    {
+        $ruangan = RuanganModel::findOrFail($idruangan);
+        return view('admin.pages.ruangan.v_ruanganedit', compact('ruangan'));
+    }
+
+    /**
+     * Simpan perubahan ruangan.
+     */
+    public function update(Request $request, $idruangan)
+    {
+        $request->validate([
+            'koderuangan' => 'required|unique:tbl_ruangan,koderuangan,' . $idruangan . ',idruangan',
+            'namaruangan' => 'required|string',
+            'jumlah' => 'required|integer',
+            'lokasi' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'required|in:tersedia,dipinjam',
         ]);
 
-        return redirect('/ruangan');
+        $ruangan = RuanganModel::findOrFail($idruangan);
+        $data = $request->all();
+
+        // Update gambar jika diunggah
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            $oldImage = public_path('gambar_ruangan/' . $ruangan->gambar);
+            if (File::exists($oldImage)) {
+                File::delete($oldImage);
+            }
+
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('gambar_ruangan'), $namaFile);
+            $data['gambar'] = $namaFile;
+        }
+
+        $ruangan->update($data);
+
+        return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil diperbarui');
     }
-    //====================AKHIR METHODE UNTUK TAMBAH RUANGAN=================
 
-
-    //====================AWAL METHODE UNTUK HAPUS RUANGAN=================
-    public function ruanganhapus($idruangan)
+    /**
+     * Hapus ruangan (SoftDeletes).
+     */
+    public function destroy($idruangan)
     {
-        $ruangan = RuanganModel::find($idruangan);
+        $ruangan = RuanganModel::findOrFail($idruangan);
         $ruangan->delete();
 
-        return redirect()->back();
+        return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil dihapus');
     }
-    //====================AKHIR METHODE UNTUK HAPUS RUANGAN=================
 
-
-
-    //====================AWAL METHODE UNTUK EDIT RUANGAN=================
-    public function ruanganedit($idruangan, Request $request)
+    /**
+     * Tampilkan ruangan yang sudah dihapus (SoftDeletes).
+     */
+    public function trash()
     {
-        $this->validate($request, [
-            'idruangan' => 'required',
-            'koderuangan' => 'required',
-            'namaruangan' => 'required',
-            'lokasi' => 'required',
-            'lebar' => 'required',
-            'panjang' => 'required',
-            'kondisi' => 'required',
-        ]);
-
-        $ruangan = RuanganModel::find($idruangan);
-        $ruangan->idruangan = $request->idruangan;
-        $ruangan->koderuangan = $request->koderuangan;
-        $ruangan->namaruangan = $request->namaruangan;
-        $ruangan->lokasi = $request->lokasi;
-        $ruangan->lebar = $request->lebar;
-        $ruangan->panjang = $request->panjang;
-        $ruangan->kondisi = $request->kondisi;
-        $ruangan->save();
-
-        //return redirect('/ruangan');
-        return redirect()->back();
+        $ruangan = RuanganModel::onlyTrashed()->get();
+        return view('admin.pages.ruangan.v_ruangansampah', compact('ruangan'));
     }
-    //====================AKHIR METHODE UNTUK EDIT RUANGAN=================
+
+    /**
+     * Pulihkan ruangan yang dihapus.
+     */
+    public function restore($idruangan)
+    {
+        $ruangan = RuanganModel::onlyTrashed()->where('idruangan', $idruangan)->firstOrFail();
+        $ruangan->restore();
+
+        return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil dipulihkan');
+    }
+
+    /**
+     * Hapus ruangan secara permanen.
+     */
+    public function forceDelete($idruangan)
+    {
+        $ruangan = RuanganModel::onlyTrashed()->where('idruangan', $idruangan)->firstOrFail();
+        $ruangan->forceDelete();
+
+        return redirect()->route('ruangan.trash')->with('success', 'Ruangan dihapus secara permanen');
+    }
+
+    /**
+     * Fungsi pencarian ruangan.
+     */
+    public function cari(Request $request)
+    {
+        $keyword = $request->cari;
+
+        $ruangan = RuanganModel::where('namaruangan', 'like', "%{$keyword}%")
+            ->orWhere('koderuangan', 'like', "%{$keyword}%")
+            ->paginate(5)
+            ->appends(['cari' => $keyword]);
+
+        return view('admin.pages.ruangan.v_ruangan', compact('ruangan'));
+    }
+
+        public function usercari(Request $request)
+    {
+        $keyword = $request->cari;
+
+        $ruangan = RuanganModel::where('namaruangan', 'like', "%{$keyword}%")
+            ->orWhere('koderuangan', 'like', "%{$keyword}%")
+            ->paginate(5)
+            ->appends(['cari' => $keyword]);
+
+        return view('admin.pages.ruangan.user.v_userruangan', compact('ruangan'));
+    }
 }
