@@ -41,7 +41,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark text-center">
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Nama Siswa</th>
                     <th>Petugas</th>
                     <th>Waktu Pinjam</th>
@@ -53,7 +53,7 @@
             <tbody>
                 @forelse($pinjams as $pinjam)
                     <tr>
-                        <td class="text-center">{{ $pinjam->idpinjam }}</td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $pinjam->siswa->namasiswa ?? '-' }}</td>
                         <td>{{ $pinjam->petugas->name ?? '-' }}</td>
                         <td>{{ $pinjam->waktupinjam }}</td>

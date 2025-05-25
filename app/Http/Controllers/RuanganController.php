@@ -71,6 +71,11 @@ class RuanganController extends Controller
         return view('admin.pages.ruangan.v_ruangantampil', compact('ruangan'));
     }
 
+        public function usershow($idruangan)
+    {
+        $ruangan = RuanganModel::findOrFail($idruangan);
+        return view('admin.pages.ruangan.user.v_userruangantampil', compact('ruangan'));
+    }
     /**
      * Tampilkan form edit ruangan.
      */

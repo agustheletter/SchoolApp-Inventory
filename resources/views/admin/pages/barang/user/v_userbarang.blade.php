@@ -100,7 +100,7 @@
                   <img class="h-16 w-16 rounded-md object-cover shadow" src="{{ asset('gambar_barang/' . $item->gambar) }}" alt="Gambar barang">
                 </div>
                 @else
-                <span class="text-gray-400 italic text-sm">No image</span>
+                <span class="text-gray-400 italic text-sm">Tidak ada gambar</span>
                 @endif
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

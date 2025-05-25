@@ -33,9 +33,9 @@
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
-            <thead class="thead-dark">
+            <thead class="thead-dark text-center">
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Nama Siswa</th>
                     <th>Petugas</th>
                     <th>Ruangan</th>
@@ -47,7 +47,7 @@
             <tbody>
                 @forelse($histories as $history)
                     <tr>
-                        <td>{{ $history->idpinjam }}</td>
+                        <td>{{ $loop->iteration }}</td> {{-- Ganti ID jadi No --}}
                         <td>{{ $history->siswa->namasiswa ?? '-' }}</td>
                         <td>{{ $history->petugas->name ?? '-' }}</td>
                         <td>{{ $history->ruangan->namaruangan ?? 'Ruangan tidak ditemukan' }}</td>

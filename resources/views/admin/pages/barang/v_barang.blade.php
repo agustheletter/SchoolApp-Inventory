@@ -39,12 +39,11 @@
         </form>
     </div>
 
-
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Kode Barang</th>
                     <th>Nama</th>
                     <th>Stok</th>
@@ -58,7 +57,7 @@
             <tbody>
                 @forelse ($barang as $item)
                     <tr>
-                        <td>{{ $item->idbarang }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->kodebarang }}</td>
                         <td>{{ $item->namabarang }}</td>
                         <td>{{ $item->stok }}</td>
@@ -90,12 +89,10 @@
                     </tr>
                 @endforelse
             </tbody>
-            
         </table>
     </div>
-    <div class="justify-center">
-        {{ $barang->links() }}
+        <div class="justify-center">
+            {{ $barang->links() }}
+        </div>
     </div>
-    
-</div>
 @endsection

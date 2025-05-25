@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ asset('template') }}/index3.html" class="brand-link">
+    <a href="{{url('/')}}" class="brand-link">
         <img src="{{ asset('profile/logo_sarpras.png') }}" alt="Logo Sarpras Sekolah" style="width: auto; height: auto;"
             class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Aplikasi Sarpras</span>
@@ -43,7 +43,7 @@
                 <li class="nav-item">
                     <a href="{{url('/home')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
+                        <p> 
                             Dashboard
                         </p>
                     </a>
@@ -52,7 +52,7 @@
 
 
                 <!--Awal MASTER DATA-->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
@@ -61,64 +61,64 @@
                             <span class="badge badge-info right">4</span>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview"> --}}
 
                         <!--Awal Tahun AJaran-->
-                        <li class="nav-item">
-                            <a href="/thnajaran" class="nav-link">
+                        {{-- <li class="nav-item">
+                            <a href="/thnajaran" class="nav-link"> --}}
                                 {{-- <i class="nav-icon far fa-calendar-alt"></i> --}}
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Tahun Ajaran
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <!--Akhir Tahun AJaran-->
 
                         <!--Awal Ruangan-->
-                        <li class="nav-item">
-                            <a href="/ruangan" class="nav-link">
+                        {{-- <li class="nav-item">
+                            <a href="/ruangan" class="nav-link"> --}}
                                 {{-- <i class="nav-icon far fa-calendar-alt"></i> --}}
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Ruangan
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <!--Akhir Ruangan-->
 
 
                         <!--Awal Program Keahlian-->
-                        <li class="nav-item">
-                            <a href="/programkeahlian" class="nav-link">
+                        {{-- <li class="nav-item">
+                            <a href="/programkeahlian" class="nav-link"> --}}
                                 {{-- <i class="nav-icon fas fa-table"></i> --}}
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Program Keahlian
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <!--Akhir Program Keahlian-->
 
 
                         <!--Awal Jurusan-->
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/jurusan" class="nav-link">
                                 {{-- <i class="nav-icon fas fa-table"></i> --}}
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Jurusan
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <!--Akhir Jurusan-->
 
 
-                        <!--Awal Kelas-->
+                        {{-- <!--Awal Kelas-->
                         <li class="nav-item">
                             <a href="/kelas" class="nav-link">
                                 {{-- <i class="fas fa-restroom"></i> --}}
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Kelas
                                 </p>
@@ -130,7 +130,7 @@
                         <li class="nav-item">
                             <a href="/kelasdetail" class="nav-link">
                                 {{-- <i class="fas fa-restroom"></i> --}}
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Kelas Detail
                                 </p>
@@ -139,8 +139,8 @@
                         <!--Akhir Kelas Detail-->
 
                         
-                    </ul>
-                </li>
+                    </ul> --}}
+                {{-- </li> --}} 
                 <!--Akhir MASTER DATA-->
 
 
@@ -298,6 +298,7 @@
                             <a href="/barang" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inventory</p>
+                                <span class="badge badge-info right">2</span>
                             </a>
                         </li>
 
@@ -305,6 +306,7 @@
                             <a href="/peminjamanbarang" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Peminjaman</p>
+                                <span class="badge badge-info right">2</span>
                             </a>
                         </li>
 
@@ -312,6 +314,7 @@
                             <a href="/peminjamanbarang/sedangdipinjam" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dipinjam</p>
+                                <span class="badge badge-info right">2</span>
                             </a>
                         </li>
 
@@ -319,32 +322,12 @@
                             <a href="/history-peminjamanbarang" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>History</p>
+                                <span class="badge badge-info right">2</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <!-- Akhir Sarana & Prasarana -->
-
-
-
-                
-                
-
-
-                
-
-
-                
-
-
-
-
-
-
-
-
-
-
 
 
 {{-- 

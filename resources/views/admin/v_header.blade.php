@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-dark navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -21,33 +21,35 @@
     <ul class="navbar-nav ml-auto">
       
       <!--awal tampilan user-->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
-        <ul class="nav navbar-nav navbar-right"> 
-          
-          Anda Login sebagai :   
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              {{  Auth::user()->name }} 
-              <span class="caret"></span> 
-            </a> <ul class="dropdown-menu"> 
-              <li>
-                <a>ID User: {{ Auth::user()->id }}</a>
-              </li> 
-              <li>
-                {{-- <a>Level: {{ Auth::user()->level->level }}</a> --}}
-                <a>Level: {{ Auth::user()->role}}</a>
-              </li>
-              <li role="separator" class="divider"></li> 
-              <li> 
-                <a href="{{ route('logoutaksi') }}"> 
-                  <i class="fa fa-power-off"></i> 
-                  Log Out 
-                </a> 
-              </li> 
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+    <ul class="nav navbar-nav navbar-right d-flex align-items-center" style="gap: 10px;"> 
+        <li class="nav-item">
+            <span class="navbar-text text-white">
+                Anda Login sebagai:
+            </span>
+        </li>
+        
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle text-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                {{ Auth::user()->name }}
+                <span class="caret"></span> 
+            </a>
+            <ul class="dropdown-menu"> 
+                <li><a>ID User: {{ Auth::user()->id }}</a></li> 
+                <li><a>Level: {{ Auth::user()->role }}</a></li>
+                <li role="separator" class="divider"></li> 
+                <li>
+                    <a href="{{ route('logoutaksi') }}"> 
+                        <i class="fa fa-power-off"></i> 
+                        Log Out 
+                    </a> 
+                </li> 
             </ul> 
-          </li> 
-        </ul> 
-      </div>
+        </li> 
+    </ul> 
+</div>
+
+
       <!--akhir tampilan user-->
 
       <!-- Awal Tombol Full Screen -->

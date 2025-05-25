@@ -6,7 +6,8 @@
   <script src="{{ asset('aos.js') }}"></script>
   <script src="{{ asset('lucide.min.js') }}"></script>
   <link href="{{ asset('aos.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  
 
   <style>
     html {
@@ -65,6 +66,7 @@
         </div>
     </div>
 </header>
+
 
 <script>
     // Mobile menu toggle functionality

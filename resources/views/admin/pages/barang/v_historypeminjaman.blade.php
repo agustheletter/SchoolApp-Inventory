@@ -35,25 +35,30 @@
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
+                    <th class="text-center">No</th>
                     <th>Nama Siswa</th>
                     <th>Petugas</th>
                     <th>Barang</th>
                     <th>Waktu Pinjam</th>
                     <th>Waktu Kembali</th>
-                    <th>Status</th>
+                    <th class="text-center">Status</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($histories as $history)
                     <tr>
-                        <td>{{ $history->idpinjam }}</td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $history->siswa->namasiswa ?? '-' }}</td>
                         <td>{{ $history->petugas->name ?? '-' }}</td>
                         <td>{{ $history->barang->namabarang ?? 'Barang tidak ditemukan' }}</td>
                         <td>{{ \Carbon\Carbon::parse($history->waktupinjam)->format('d-m-Y H:i') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($history->waktukembali)->format('d-m-Y H:i') }}</td>
                         <td>
+                            {{ $history->waktukembali 
+                                ? \Carbon\Carbon::parse($history->waktukembali)->format('d-m-Y H:i') 
+                                : '-' 
+                            }}
+                        </td>
+                        <td class="text-center">
                             <span class="badge bg-secondary">
                                 {{ ucfirst($history->status) }}
                             </span>
@@ -67,7 +72,5 @@
             </tbody>
         </table>
     </div>
-
 </div>
-
 @endsection

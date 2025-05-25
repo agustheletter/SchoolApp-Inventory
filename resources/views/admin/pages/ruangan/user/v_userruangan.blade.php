@@ -7,16 +7,16 @@
     <div class="flex justify-center mb-8">
       <div class="inline-flex rounded-md shadow-sm" role="group">
         <a 
-          href="{{ route('barang.user') }}" 
+          href="{{ route('ruangan.user') }}" 
           class="px-6 py-3 text-sm font-medium rounded-l-lg 
-            {{ request()->is('user/barang*') ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }}
+            {{ request()->is('user/ruangan*') ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }}
             border border-gray-200 transition-colors duration-200"
         >
           <div class="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
-            Daftar Barang
+            Daftar ruangan
           </div>
         </a>
         <a 
@@ -74,6 +74,7 @@
               <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Deskripsi</th>
               <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Status</th>
               <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Gambar</th>
+              <th class="px-6 py-4 text-right text-xs font-medium uppercase tracking-wider">Aksi</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -108,34 +109,43 @@
                         Tidak Diketahui
                     </span>
                 @endif
-            </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                @if($item->gambar)
-                <div class="flex-shrink-0 h-16 w-16 mx-auto">
-                  <img class="h-16 w-16 rounded-md object-cover shadow" src="{{ asset('gambar_ruangan/' . $item->gambar) }}" alt="Gambar ruangan">
-                </div>
-                @else
-                <span class="text-gray-400 italic text-sm">No image</span>
-                @endif
               </td>
-            </tr>
-            @empty
-            <tr>
-              <td colspan="7" class="px-6 py-8 text-center">
-                <div class="flex flex-col items-center justify-center text-gray-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <p class="text-lg">Ruangan tidak ditemukan</p>
-                  <p class="text-sm mt-2">Coba dengan kata kunci yang berbeda</p>
-                </div>
-              </td>
-            </tr>
-            @endforelse
-          </tbody>
-        </table>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  @if($item->gambar)
+                  <div class="flex-shrink-0 h-16 w-16 mx-auto">
+                    <img class="h-16 w-16 rounded-md object-cover shadow" src="{{ asset('gambar_ruangan/' . $item->gambar) }}" alt="Gambar ruangan">
+                  </div>
+                  @else
+                  <span class="text-gray-400 italic text-sm">Tidak ada gambar</span>
+                  @endif
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="{{ route('ruangan.usershow', $item->idruangan) }}" class="text-blue-600 hover:text-blue-900 transition duration-300 flex items-center justify-end">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                      <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                    </svg>
+                    Detail
+                  </a>
+                </td>
+              </tr>
+              @empty
+              <tr>
+                <td colspan="7" class="px-6 py-8 text-center">
+                  <div class="flex flex-col items-center justify-center text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-lg">Ruangan tidak ditemukan</p>
+                    <p class="text-sm mt-2">Coba dengan kata kunci yang berbeda</p>
+                  </div>
+                </td>
+              </tr>
+              @endforelse
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
     <!-- Pagination -->
     <div class="mt-8 flex justify-center">

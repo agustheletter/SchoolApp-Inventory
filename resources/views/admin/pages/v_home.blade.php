@@ -1,108 +1,93 @@
-<!--awal konten dinamis-->
 @extends('admin.v_admin')
-@section('judulhalaman', 'Home')
-@section('title', 'Home')
 
-<!--awal isi konten dinamis-->
+@section('judulhalaman', 'Dashboard Sarpras')
+@section('title', 'Dashboard Sarpras')
+
 @section('konten')
+<div class="container-fluid">
+    <!-- Stat Boxes -->
+    <div class="row">
 
-
-
-    <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-3 col-6">
-
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>{{$bayar}}</h3>
-
-                        <p>Jumlah Transaksi</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <!-- Total Barang -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $jumlahBarang }}</h3>
+                    <p>Total Barang</p>
                 </div>
-            </div>
-
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                        <p>Prosentase Pendapatan</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <div class="icon">
+                    <i class="fas fa-box text-white"></i>
                 </div>
+                <a href="/barang" class="small-box-footer">
+                    Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
-
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3 class="text-white">{{$jurusan}}</h3>
-
-                        <p class="text-white">Jumlah Jurusan</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="/jurusan" class="small-box-footer"><text class="text-white">More info </text><i class="fas fa-arrow-circle-right text-white"></i></a>
-                </div>
-            </div>
-
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3>{{$kelas}}</h3>
-
-                        <p>Jumlah Kelas</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="/kelas" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
-        <!-- Main row -->
-
-        <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>{{$siswa}}</h3>
-
-                        <p>Jumlah Siswa</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="/siswakelas" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-        
         </div>
 
-    </div><!-- /.container-fluid -->
+        <!-- Total Ruangan -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>{{ $jumlahRuangan }}</h3>
+                    <p>Total Ruangan</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-door-open text-white"></i>
+                </div>
+                <a href="/ruangan" class="small-box-footer">
+                    Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
 
+        <!-- Peminjaman Menunggu -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3 class="text-white">{{ $peminjamanMenunggu }}</h3>
+                    <p class="text-white">Peminjaman Menunggu</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-hourglass-start text-white"></i>
+                </div>
+                <a href="/peminjamanbarang" class="small-box-footer text-white">
+                    Lihat Detail <i class="fas fa-arrow-circle-right text-white"></i>
+                </a>
+            </div>
+        </div>
 
+        <!-- Peminjaman Sedang Dipinjam -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3 class="text-white">{{ $peminjamanDipinjam }}</h3>
+                    <p class="text-white">Peminjaman Dipinjam</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-hand-holding text-white"></i>
+                </div>
+                <a href="/peminjamanbarang/sedangdipinjam" class="small-box-footer text-white">
+                    Lihat Detail <i class="fas fa-arrow-circle-right text-white"></i>
+                </a>
+            </div>
+        </div>
 
+        <!-- Peminjaman Selesai -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3 class="text-white">{{ $peminjamanSelesai }}</h3>
+                    <p class="text-white">Peminjaman Selesai</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-undo text-white"></i>
+                </div>
+                <a href="/history-peminjamanbarang" class="small-box-footer text-white">
+                    Lihat Detail <i class="fas fa-arrow-circle-right text-white"></i>
+                </a>
+            </div>
+        </div>
 
+    </div>
+</div>
 @endsection
-<!--akhir isi konten dinamis-->
-
-<!--akhir konten dinamis-->

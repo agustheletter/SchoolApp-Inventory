@@ -33,9 +33,9 @@
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
-            <thead class="thead-dark">
+            <thead class="thead-dark text-center">
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Nama Siswa</th>
                     <th>Petugas</th>
                     <th>Waktu Pinjam</th>
@@ -47,7 +47,7 @@
             <tbody>
                 @forelse($pinjams as $pinjam)
                     <tr>
-                        <td>{{ $pinjam->idpinjam }}</td>
+                        <td>{{ $loop->iteration }}</td> {{-- Ganti dengan $pinjams->firstItem() + $loop->index jika pakai pagination --}}
                         <td>{{ $pinjam->siswa->namasiswa ?? '-' }}</td>
                         <td>{{ $pinjam->petugas->name ?? '-' }}</td>
                         <td>{{ $pinjam->waktupinjam }}</td>
@@ -69,13 +69,12 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted">Tidak ada data peminjaman.</td>
+                        <td colspan="7" class="text-center text-muted">Tidak ada data.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-
 </div>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
