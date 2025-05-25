@@ -2,9 +2,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ asset('template') }}/index3.html" class="brand-link">
-        <img src="{{ asset('template') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+        <img src="{{ asset('profile/logo_sarpras.png') }}" alt="Logo Sarpras Sekolah" style="width: auto; height: auto;"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Aplikasi Keuangan</span>
+        <span class="brand-text font-weight-light">Aplikasi Sarpras</span>
     </a>
 
     <!-- Sidebar -->
@@ -12,8 +12,8 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                {{-- <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> --}}
-                <img src="{{ asset('gambar/photoprofile.jpg') }}" class="img-circle elevation-2" width="160px" height="160px" class="text-center">
+                <img src="{{ asset('profile/logo_sarpras.png') }}" alt="Logo Sarpras Sekolah" style="width: 35px; height: 35px;"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
             </div>
             <div class="info">
                 {{-- <a href="#" class="d-block">{{ Auth::user()->name }}</a> --}}
@@ -41,7 +41,7 @@
 
                 <!--Awal Dashboard-->
                 <li class="nav-item">
-                    <a href="{{url('/')}}" class="nav-link">
+                    <a href="{{url('/home')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -144,7 +144,7 @@
                 <!--Akhir MASTER DATA-->
 
 
-                <!--Awal Siswa-->
+                {{-- <!--Awal Siswa-->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
@@ -192,15 +192,15 @@
                         <!--Akhir Kelas Siswa-->
                     </ul>
                 </li>
-                <!--Akhir Siswa-->
+                <!--Akhir Siswa--> --}}
 
 
 
                 <!--Awal Guru-->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         {{-- <i class="fa fa-graduation-cap" aria-hidden="true"></i> --}}
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        {{-- <i class="fa fa-users" aria-hidden="true"></i>
                         <p>
                             Guru
                             <i class="fas fa-angle-left right"></i>
@@ -214,11 +214,11 @@
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Master Guru</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <!--Akhir Master Guru-->
 
                         <!--Awal Mengajar Guru-->
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/gurumengajar" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Mengajar Guru</p>
@@ -226,12 +226,12 @@
                         </li>
                         <!--Akhir Mengajar Guru-->
                     </ul>
-                </li>
+                </li>  --}}
                 <!--Akhir Guru-->
 
 
 
-                <!--Awal Pembayaran-->
+                {{-- <!--Awal Pembayaran-->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-dollar-sign"></i>
@@ -266,7 +266,7 @@
                         <li class="nav-item">
                             <a href="/laporan" class="nav-link">
                                 {{-- <i class="nav-icon fas fa-chart-pie"></i> --}}
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i>
                                 <p>Laporan Pembayaran</p>
                             </a>
                         </li>
@@ -281,7 +281,7 @@
                         
                     </ul>
                 </li>
-                <!--Akhir Pembayaran-->
+                <!--Akhir Pembayaran-->  --}}
 
                 <!-- Awal Sarana & Prasarana -->
                 <li class="nav-item">
@@ -290,7 +290,7 @@
                         <p>
                             Sarana & Prasarana
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">2</span>
+                            <span class="badge badge-info right">4</span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -302,9 +302,23 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/peminjaman" class="nav-link">
+                            <a href="/peminjamanbarang" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Peminjaman</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/peminjamanbarang/sedangdipinjam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Dipinjam</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/history-peminjamanbarang" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>History</p>
                             </a>
                         </li>
                     </ul>

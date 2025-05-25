@@ -3,7 +3,7 @@
 <!-- Main Content -->
 <main class="min-h-screen bg-gray-50 mt-20">
   <div class="container mx-auto px-4 py-12">
-    <!-- Toggle Section -->
+    {{-- <!-- Toggle Section -->
     <div class="flex justify-center mb-8">
       <div class="inline-flex rounded-md shadow-sm" role="group">
         <a 
@@ -33,7 +33,7 @@
           </div>
         </a>
       </div>
-    </div>
+    </div> --}}
 
     <!-- Search Section -->
     <div class="flex flex-col items-center mb-12">
@@ -72,6 +72,7 @@
               <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Kapasitas</th>
               <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Lokasi</th>
               <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Deskripsi</th>
+              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Status</th>
               <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Gambar</th>
             </tr>
           </thead>
@@ -84,6 +85,30 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->jumlah }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->lokasi }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->deskripsi }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm">
+                @if($item->status === 'tersedia')
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-blue-400" fill="currentColor" viewBox="0 0 8 8">
+                            <circle cx="4" cy="4" r="3" />
+                        </svg>
+                        Tersedia
+                    </span>
+                @elseif($item->status === 'dipinjam')
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                        <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-yellow-400" fill="currentColor" viewBox="0 0 8 8">
+                            <circle cx="4" cy="4" r="3" />
+                        </svg>
+                        Dipinjam
+                    </span>
+                @else
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                        <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-gray-400" fill="currentColor" viewBox="0 0 8 8">
+                            <circle cx="4" cy="4" r="3" />
+                        </svg>
+                        Tidak Diketahui
+                    </span>
+                @endif
+            </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 @if($item->gambar)
                 <div class="flex-shrink-0 h-16 w-16 mx-auto">

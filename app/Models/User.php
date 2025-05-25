@@ -45,4 +45,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function pinjam()
+    {
+        return $this->hasMany(PinjamModel::class, 'idpetugas', 'id');
+    }
+
+    public function petugas()
+    {
+        return $this->hasMany(PetugasModel::class, 'idpetugas', 'id');
+    }
 }

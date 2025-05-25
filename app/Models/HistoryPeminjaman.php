@@ -3,16 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PinjamModel extends Model
+class HistoryPeminjaman extends Model
 {
-    use SoftDeletes;
-
-    protected $table = 'tbl_pinjam';
-    protected $primaryKey = 'idpinjam';
-    protected $keyType = 'string';
-    public $incrementing = false;
+    protected $table = 'history_peminjaman';
 
     protected $fillable = [
         'idpinjam',
@@ -20,33 +14,25 @@ class PinjamModel extends Model
         'idpetugas',
         'idbarang',
         'waktupinjam',
+        'waktukembali',
         'status',
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['waktupinjam', 'waktukembali'];
 
-    // Relasi ke siswa
     public function siswa()
     {
         return $this->belongsTo(SiswaModel::class, 'idsiswa', 'idsiswa');
     }
 
-    // Relasi ke petugas
     public function petugas()
     {
         return $this->belongsTo(User::class, 'idpetugas', 'id');
     }
 
-    // Relasi ke detail pinjam
-    public function details()
-    {
-        return $this->hasMany(PinjamDetailModel::class, 'idpinjam', 'idpinjam');
-    }
-
-    // Relasi ke barang
     public function barang()
     {
         return $this->belongsTo(BarangModel::class, 'idbarang', 'idbarang');
     }
-
 }
+

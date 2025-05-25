@@ -28,4 +28,5 @@ class PinjamDetailModel extends Model
     {
         return $this->belongsTo(BarangModel::class, 'idbarang', 'idbarang');
     }
+
 }

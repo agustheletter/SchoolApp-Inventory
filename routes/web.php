@@ -14,6 +14,7 @@ use App\Http\Controllers\MutasiKelasController;
 use App\Http\Controllers\PinjamController;
 use App\Http\Controllers\PinjamDetailController;
 use App\Http\Controllers\ProgramKeahlianController;
+use App\Http\Controllers\HistoryPeminjamanController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaKelasController;
@@ -199,17 +200,27 @@ Route::get('/ruangan/force-delete/{idruangan}', [RuanganController::class, 'forc
 // Route::post('/ruangandetail/bulk-update', [RuanganDetailController::class, 'bulkUpdate'])->name('ruangandetail.bulkUpdate');
 
 
-//=========================AWAL ROUTE PINJAM=========================
-Route::prefix('peminjaman')->name('pinjam.')->group(function () {
+//=========================AWAL ROUTE PINJAMBARANG=========================
+Route::prefix('peminjamanbarang')->name('pinjam.')->group(function () {
     Route::get('/', [PinjamController::class, 'index'])->name('index');
+    Route::get('/sedangdipinjam', [PinjamController::class, 'dipinjam'])->name('dipinjam');
     Route::get('/create', [PinjamController::class, 'create'])->name('create');
     Route::post('/store', [PinjamController::class, 'store'])->name('store');
+    Route::get('/pinjam/tambah', [PinjamController::class, 'create'])->name('pinjam.create');
+    Route::post('/pinjam', [PinjamController::class, 'store'])->name('pinjam.store');
     Route::get('/{idpinjam}/edit', [PinjamController::class, 'edit'])->name('edit');
     Route::put('/{idpinjam}', [PinjamController::class, 'update'])->name('update');
     Route::delete('/{idpinjam}', [PinjamController::class, 'destroy'])->name('destroy');
     Route::get('/{idpinjam}', [PinjamController::class, 'show'])->name('show');
+    Route::put('/pinjam/kembalikan/{id}', [PinjamController::class, 'kembalikan'])->name('pinjam.kembalikan');
+    Route::put('/{idpinjam}/konfirmasi', [PinjamController::class, 'konfirmasi'])->name('konfirmasi');
 });
-//========================AKHIR ROUTE PINJAM========================
+Route::get('/history-peminjamanbarang', [HistoryPeminjamanController::class, 'index'])->name('history.index');
+//========================AKHIR ROUTE PINJAMBARANG========================
+
+//=========================AWAL ROUTE PINJAMRUANGAN=========================
+// NU IE CAN DI JIEN PI
+//========================AKHIR ROUTE PINJAMRUANGAN========================
 
 //=========================AWAL ROUTE PINJAM DETAIL=========================
 Route::prefix('pinjamdetail')->name('pinjamdetail.')->group(function () {

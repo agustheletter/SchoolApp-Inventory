@@ -34,6 +34,12 @@ class SiswaModel extends Model
         return $this->hasMany('App\Models\BayarModel','idsiswa');
     }
 
+    public function pinjam()
+    {
+        return $this->hasMany('App\Models\PinjamModel','idsiswa');
+    }
+    
+
     // public function jenisbayardetail()
     // {
     //     return $this->hasMany('App\Models\JenisBayarDetailModel','idthnajaran');

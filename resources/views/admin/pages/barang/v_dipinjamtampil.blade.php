@@ -1,35 +1,31 @@
 @extends('admin/v_admin')
 
-@section('judulhalaman', 'Daftar Peminjaman Barang')
+@section('judulhalaman', 'Daftar Barang Yang Sedang Dipinjam')
 @section('title', 'Peminjaman')
 
 @section('konten')
+<div class="container">
 
-<ul class="nav nav-tabs mb-4" id="barangRuanganTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a 
-      class="nav-link {{ request()->is('peminjamanbarang*') ? 'active' : '' }}" 
-      href="/peminjamanbarang"
-      role="tab"
-    >
-      Barang
-    </a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a 
-      class="nav-link {{ request()->is('peminjamanruangan*') ? 'active' : '' }}" 
-      href="/peminjamanruangan"
-      role="tab"
-    >
-      Ruangan
-    </a>
-  </li>
-</ul>
-
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="{{ route('pinjam.create') }}" class="btn btn-success">+ Tambah Peminjaman</a>
-    </div>
+    <ul class="nav nav-tabs mb-4" id="barangRuanganTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a 
+                class="nav-link {{ request()->is('peminjamanbarang*') ? 'active' : '' }}" 
+                href="/peminjamanbarang/sedangdipinjam"
+                role="tab"
+            >
+                Barang
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a 
+                class="nav-link {{ request()->is('peminjamanruangan*') ? 'active' : '' }}" 
+                href="/peminjamanruangan/sedangdipinjam"
+                role="tab"
+            >
+                Ruangan
+            </a>
+        </li>
+    </ul>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -58,15 +54,17 @@
                         <td>{{ ucfirst($pinjam->status ?? 'menunggu') }}</td>
                         <td>{{ $pinjam->barang->namabarang ?? 'Barang tidak ditemukan' }}</td>
                         <td>
-                            <div class="d-flex flex-column gap-1">
-                                <form action="{{ route('pinjam.konfirmasi', $pinjam->idpinjam) }}" method="POST" onsubmit="return confirm('Konfirmasi peminjaman ini?')" class="w-100">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="btn btn-success btn-sm w-100">
-                                        <i class="bi bi-check-circle-fill me-1"></i> Konfirmasi
-                                    </button>
-                                </form>
-                            </div>
+                            <form 
+                                action="{{ route('pinjam.pinjam.kembalikan', $pinjam->idpinjam) }}" 
+                                method="POST"
+                                onsubmit="return confirm('Apakah barang ini sudah dikembalikan?')"
+                            >
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-success btn-sm rounded-pill shadow">
+                                    <i class="bi bi-check-circle-fill me-1"></i> Kembalikan
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @empty
@@ -77,8 +75,8 @@
             </tbody>
         </table>
     </div>
+
 </div>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
 @endsection

@@ -3,7 +3,7 @@
 <!-- Main Content -->
 <main class="min-h-screen bg-gray-50 mt-20">
   <div class="container mx-auto px-4 py-12">
-    <!-- Toggle Section -->
+    {{-- <!-- Toggle Section -->
     <div class="flex justify-center mb-8">
       <div class="inline-flex rounded-md shadow-sm" role="group">
         <a 
@@ -33,7 +33,7 @@
           </div>
         </a>
       </div>
-    </div>
+    </div> --}}
 
     <!-- Search Section -->
     <div class="flex flex-col items-center mb-12">

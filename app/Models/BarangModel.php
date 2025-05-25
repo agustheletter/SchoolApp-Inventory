@@ -40,6 +40,11 @@ class BarangModel extends Model
     {
         return $this->belongsTo(JurusanModel::class, 'idjurusan', 'idjurusan');
     }
+    // Relasi ke pinjam
+    public function pinjam()
+    {
+        return $this->hasMany(PinjamModel::class, 'idbarang', 'idbarang');
+    }
 
     // Auto generate barang detail saat barang dibuat
     protected static function booted()
