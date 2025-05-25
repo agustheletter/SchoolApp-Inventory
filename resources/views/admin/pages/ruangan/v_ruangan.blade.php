@@ -72,7 +72,7 @@
                     <td>{{ $r->status ?? '-' }}</td>
                     <td>
                         <div class="d-flex flex-column gap-1">
-                            <a href="#" class="btn btn-info btn-sm w-100">Pinjam</a>
+                            <a href="{{ route('ruangan.show', $r->idruangan) }}" class="btn btn-info btn-sm w-100">Lihat</a>
                             <a href="{{ route('ruangan.edit', $r->idruangan) }}" class="btn btn-warning btn-sm w-100">Edit</a>
                             <form action="{{ route('ruangan.destroy', $r->idruangan) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus?')">
                                 @csrf

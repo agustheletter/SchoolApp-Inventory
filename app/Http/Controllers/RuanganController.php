@@ -174,7 +174,7 @@ class RuanganController extends Controller
         return view('admin.pages.ruangan.v_ruangan', compact('ruangan'));
     }
 
-        public function usercari(Request $request)
+    public function usercari(Request $request)
     {
         $keyword = $request->cari;
 

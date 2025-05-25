@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('koderuangan')->unique();
             $table->string('namaruangan');
             $table->integer('jumlah');
+            $table->integer('kapasitas');
             $table->string('lokasi')->nullable();
             $table->text('deskripsi')->nullable();
             $table->string('gambar')->nullable();
