@@ -15,6 +15,8 @@ use App\Http\Controllers\PinjamController;
 use App\Http\Controllers\PinjamDetailController;
 use App\Http\Controllers\ProgramKeahlianController;
 use App\Http\Controllers\HistoryPeminjamanController;
+use App\Http\Controllers\HistoryPeminjamanRuanganController;
+use App\Http\Controllers\PinjamRuanganController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaKelasController;
@@ -219,8 +221,22 @@ Route::get('/history-peminjamanbarang', [HistoryPeminjamanController::class, 'in
 //========================AKHIR ROUTE PINJAMBARANG========================
 
 //=========================AWAL ROUTE PINJAMRUANGAN=========================
-// NU IE CAN DI JIEN PI
-//========================AKHIR ROUTE PINJAMRUANGAN========================
+Route::prefix('peminjamanruangan')->name('pinjamruangan.')->group(function () {
+    Route::get('/', [PinjamRuanganController::class, 'index'])->name('index'); // daftar semua peminjaman ruangan
+    Route::get('/sedangdipinjam', [PinjamRuanganController::class, 'dipinjam'])->name('dipinjam'); // ruangan yg sedang dipinjam
+    Route::get('/create', [PinjamRuanganController::class, 'create'])->name('create'); // form tambah
+    Route::post('/store', [PinjamRuanganController::class, 'store'])->name('store'); // simpan peminjaman
+    Route::get('/pinjam/tambah', [PinjamRuanganController::class, 'create'])->name('pinjam.create'); // alternatif route
+    Route::post('/pinjam', [PinjamRuanganController::class, 'store'])->name('pinjam.store'); // alternatif route store
+    Route::get('/{idpinjam}/edit', [PinjamRuanganController::class, 'edit'])->name('edit'); // edit peminjaman
+    Route::put('/{idpinjam}', [PinjamRuanganController::class, 'update'])->name('update'); // update peminjaman
+    Route::delete('/{idpinjam}', [PinjamRuanganController::class, 'destroy'])->name('destroy'); // hapus peminjaman
+    Route::get('/{idpinjam}', [PinjamRuanganController::class, 'show'])->name('show'); // detail peminjaman
+    Route::put('/pinjam/kembalikan/{id}', [PinjamRuanganController::class, 'kembalikan'])->name('pinjam.kembalikan'); // kembalikan ruangan
+    Route::put('/{idpinjam}/konfirmasi', [PinjamRuanganController::class, 'konfirmasi'])->name('konfirmasi'); // konfirmasi peminjaman
+});
+Route::get('/history-peminjamanruangan', [HistoryPeminjamanRuanganController::class, 'index'])->name('historyruangan.index');
+
 
 //=========================AWAL ROUTE PINJAM DETAIL=========================
 Route::prefix('pinjamdetail')->name('pinjamdetail.')->group(function () {
