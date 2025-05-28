@@ -49,7 +49,6 @@
                 <th>Lokasi</th>
                 <th>Deskripsi</th>
                 <th>Gambar</th>
-                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -59,17 +58,16 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $r->koderuangan }}</td>
                     <td>{{ $r->namaruangan }}</td>
-                    <td>{{ $r->jumlah }}</td>
+                    <td>{{ $r->kapasitas}}</td>
                     <td>{{ $r->lokasi ?? '-' }}</td>
                     <td>{{ $r->deskripsi ?? '-' }}</td>
                     <td>
                         @if ($r->gambar)
                             <img src="{{ asset('gambar_ruangan/' . $r->gambar) }}" width="100" class="img-fluid rounded shadow-sm" alt="gambar">
                         @else
-                            Tidak ada gambar
+                            <span class="text-muted">Tidak ada gambar</span>
                         @endif
                     </td>
-                    <td>{{ $r->status ?? '-' }}</td>
                     <td>
                         <div class="d-flex flex-column gap-1">
                             <a href="{{ route('ruangan.show', $r->idruangan) }}" class="btn btn-info btn-sm w-100">Lihat</a>

@@ -61,51 +61,55 @@
     </div>
 
     <!-- Table Section -->
+    <!-- Table Section -->
     <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
             <tr>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">ID</th>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Kode</th>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Nama Barang</th>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Stok</th>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Harga</th>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Merk</th>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Jenis</th>
-              <th class="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider">Gambar</th>
-              <th class="px-6 py-4 text-right text-xs font-medium uppercase tracking-wider">Aksi</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">No</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Kode</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Nama Barang</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Stok</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Harga</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Merk</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Jenis</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Gambar</th>
+              <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Aksi</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            @forelse ($barang as $item)
+            @forelse ($barang as $index => $item)
             <tr class="hover:bg-gray-50 transition duration-150">
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->idbarang }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $item->kodebarang }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->namabarang }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                {{ ($barang->currentPage() - 1) * $barang->perPage() + $loop->iteration }}
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{{ $item->kodebarang }}</td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $item->namabarang }}</td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                   {{ $item->stok > 10 ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
                   {{ $item->stok }}
                 </span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                 Rp {{ number_format($item->harga, 0, ',', '.') }}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->merk }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->jenisbarang }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{{ $item->merk }}</td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{{ $item->jenisbarang }}</td>
+              <td class="px-2 py-3 whitespace-nowrap">
                 @if($item->gambar)
-                <div class="flex-shrink-0 h-16 w-16 mx-auto">
-                  <img class="h-16 w-16 rounded-md object-cover shadow" src="{{ asset('gambar_barang/' . $item->gambar) }}" alt="Gambar barang">
+                <div class="flex-shrink-0 h-20 w-20 mx-auto">
+                  <img class="h-20 w-20 rounded-md object-cover shadow" src="{{ asset('gambar_barang/' . $item->gambar) }}" alt="Gambar barang">
                 </div>
                 @else
-                <span class="text-gray-400 italic text-sm">Tidak ada gambar</span>
+                <span class="text-gray-400 italic text-xs">No image</span>
                 @endif
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="{{ route('barang.usershow', $item->idbarang) }}" class="text-blue-600 hover:text-blue-900 transition duration-300 flex items-center justify-end">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <td class="px-2 py-3 whitespace-nowrap text-sm font-medium">
+                <a href="{{ route('barang.usershow', $item->idbarang) }}" 
+                  class="text-blue-600 hover:text-blue-900 transition duration-300 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                     <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
                   </svg>
@@ -130,7 +134,6 @@
         </table>
       </div>
     </div>
-
     <!-- Pagination -->
     <div class="mt-8 flex justify-center">
       {{ $barang->links() }}

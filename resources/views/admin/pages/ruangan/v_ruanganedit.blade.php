@@ -31,8 +31,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="jumlah" class="form-label">Kapasitas</label>
-            <input type="number" class="form-control" id="jumlah" name="jumlah" value="{{ old('jumlah', $ruangan->jumlah) }}" required>
+            <label for="kapasitas" class="form-label">Kapasitas</label>
+            <input type="number" class="form-control" id="kapasitas" name="kapasitas" value="{{ old('kapasitas', $ruangan->kapasitas) }}" required>
         </div>
 
         <div class="mb-3">

@@ -34,20 +34,20 @@ class RuanganController extends Controller
     /**
      * Simpan ruangan baru ke database.
      */
-    public function store(Request $request)
+public function store(Request $request)
     {
         $request->validate([
             'koderuangan' => 'required|unique:tbl_ruangan',
             'namaruangan' => 'required|string',
-            'jumlah' => 'required|integer',
+            'kapasitas' => 'required|integer',
             'lokasi' => 'nullable|string',
             'deskripsi' => 'nullable|string',
-            'status' => 'required|in:tersedia,dipinjam', // ✅ Tambah ini
+            'status' => 'required|in:tersedia,dipinjam',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-
         $data = $request->all();
+        $data['jumlah'] = 1; // jumlah default
 
         // Handle upload gambar
         if ($request->hasFile('gambar')) {
@@ -71,11 +71,12 @@ class RuanganController extends Controller
         return view('admin.pages.ruangan.v_ruangantampil', compact('ruangan'));
     }
 
-        public function usershow($idruangan)
+    public function usershow($idruangan)
     {
         $ruangan = RuanganModel::findOrFail($idruangan);
         return view('admin.pages.ruangan.user.v_userruangantampil', compact('ruangan'));
     }
+
     /**
      * Tampilkan form edit ruangan.
      */
@@ -93,7 +94,7 @@ class RuanganController extends Controller
         $request->validate([
             'koderuangan' => 'required|unique:tbl_ruangan,koderuangan,' . $idruangan . ',idruangan',
             'namaruangan' => 'required|string',
-            'jumlah' => 'required|integer',
+            'kapasitas' => 'required|integer',
             'lokasi' => 'nullable|string',
             'deskripsi' => 'nullable|string',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',

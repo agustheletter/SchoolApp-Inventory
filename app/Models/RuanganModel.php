@@ -18,13 +18,15 @@ class RuanganModel extends Model
     protected $fillable = [
         'koderuangan',
         'namaruangan',
-        'jumlah',
+        'jumlah', 
+        'kapasitas',
         'lokasi',
         'deskripsi',
         'gambar',
         'status',
         'idjurusan',
     ];
+
 
     // Relasi ke jurusan
     public function jurusan()

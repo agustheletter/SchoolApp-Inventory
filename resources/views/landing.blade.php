@@ -226,7 +226,7 @@
           data-aos="fade-right"
           data-aos-delay="400">
         <div class="mb-6">
-          <img src="{{ asset('profile/profile.jpg') }}" alt="Developer" class="w-50 h-auto rounded-full mx-auto mb-4 border-4 border-blue-100">
+          <img src="{{ asset('profile/profile.JPG') }}" alt="Developer" class="w-50 h-auto rounded-full mx-auto mb-4 border-4 border-blue-100">
           <h4 class="text-xl font-bold text-gray-800">Muhammad Zufar</h4>
           <p class="text-blue-600 font-medium">Fullstack Web Developer</p>
         </div>
@@ -262,7 +262,7 @@
           data-aos="fade-left"
           data-aos-delay="400">
         <div class="mb-6">
-          <img src="{{ asset('profile/profile.jpg') }}" alt="Developer" class="w-50 h-auto rounded-full mx-auto mb-4 border-4 border-blue-100">
+          <img src="{{ asset('profile/profile.JPG') }}" alt="Developer" class="w-50 h-auto rounded-full mx-auto mb-4 border-4 border-blue-100">
           <h4 class="text-xl font-bold text-gray-800">Muhammad Rafi</h4>
           <p class="text-blue-600 font-medium">Fullstack Web Developer</p>
         </div>

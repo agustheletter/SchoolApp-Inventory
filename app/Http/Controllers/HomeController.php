@@ -40,4 +40,11 @@ class HomeController extends Controller
             'peminjamanSelesai'
         ));
     }
+
+    public function about()
+    {
+        // mengirim data guru ke view guru
+        return view('admin.pages.v_about');
+    }
+
 }
